@@ -1,0 +1,9 @@
+name: 100062827
+paper size: [8.5, 11]
+padding top: .472
+padding left: .0512
+label size: [2.559, 1.181]
+label padding right: .0787
+label padding bottom: .0787
+max row: 3
+max column: 8

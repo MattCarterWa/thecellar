@@ -1,0 +1,10 @@
+Name: Salvage
+Width: 275
+Height: 120
+Background Color: White
+Part 1: Barcode
+Top Padding: 20
+Left Padding: Center
+Part 2: Text
+Top Padding: 5
+Left Padding: Center
