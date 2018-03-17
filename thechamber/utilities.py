@@ -7,6 +7,10 @@ current_time = ".".join((starttime[0], starttime[1]))
 timestamp = "_".join((todays_date, current_time))
 font_folder = "font_cellar"
 label_folder = "label_files_cellar"
+todays_salvage_page_path = "label_files_cellar/todayspage.png"
+
+# Email Related
+program_email = "fmphotocenter@gmail.com"
 
 def na_date():
     segments = todays_date.split("-")

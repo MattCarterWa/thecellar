@@ -1,7 +1,7 @@
 import easygui
 import os
 import report
-
+from gmail import send_attached_file
 
 storage_path = "menu_cellar"
 menu_storage_ext = ".ms"
@@ -73,7 +73,25 @@ class LabelMenu(Menu):
     def run_f4t_page(self):
         from salvage_label import create_salvage_page
 
-        create_salvage_page()
+        path = create_salvage_page()
+
+        answer = easygui.ynbox("Want me to email this?")
+
+        if not answer:
+            quit()
+
+        else:
+            send_to = easygui.enterbox("Who am I sending this to?", "Enter Email")
+
+            while not answer:
+                msg = "".join(("Is this correct\n", send_to))
+                easygui.ynbox(msg)
+            msg_body = "Please print this out on an F4T Tag Sheet,\nThanks - Matt"
+            send_attached_file(send_to,"F4T Salvage Tags", msg_body, path)
+
+
+
+
 
 class MainMenu(Menu):
     title = "Main Menu"

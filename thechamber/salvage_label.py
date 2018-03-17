@@ -90,13 +90,15 @@ class SalvagePage:
                 break
             self.salvage_page.paste(label_im.rotate(90, expand=True), printer.coords)
 
-        self.salvage_page.show()
+        # self.salvage_page.show()
 
 def create_salvage_page():
     label = SalvageLabel()
     label.im.show()
     page = SalvagePage(label.im)
-    page.salvage_page.save("label_files_cellar/todayspage.png")
+    path = "label_files_cellar/todayspage.png"
+    page.salvage_page.save(path)
+    return path
 
 
 if __name__ == "__main__":
