@@ -58,7 +58,7 @@ def make_salvage_page(form_name="10032827"):
         c += 1
         r = 0
         x = origin_x
-    image.show()
+    # image.show()
     return image
 
 
