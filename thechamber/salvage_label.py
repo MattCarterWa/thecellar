@@ -93,10 +93,10 @@ class SalvagePage:
         # self.salvage_page.show()
 
 def create_salvage_page():
+    path = "label_files_cellar/todayspage.png"
     label = SalvageLabel()
     label.im.show()
     page = SalvagePage(label.im)
-    path = "label_files_cellar/todayspage.png"
     page.salvage_page.save(path)
     return path
 
