@@ -7,7 +7,8 @@ from utilities import na_date, label_folder, center_image, matrix_printer
 from salvage_barcode import generate_barcode
 
 todays_date = na_date()
-
+default_division = "701"
+default_store = "00688"
 
 class SalvageLabel(Label):
     salvage_label_bg_filename = "salvage_label_bg.png"
@@ -25,8 +26,9 @@ class SalvageLabel(Label):
 
     barcode_text = "".join(("701", "00688", todays_date.replace("/", "")))
 
-    def __init__(self):
+    def __init__(self, division=default_division, store=default_division):
         # print(self.label_details)
+        self.barcode_text = "".join((division, store, todays_date.replace("/", "")))
         self.load_label()
         if "Background Image":
             self.im = Image.open(self.label_details["Background Image"])
@@ -92,12 +94,31 @@ class SalvagePage:
 
         # self.salvage_page.show()
 
-def create_salvage_page():
-    path = "label_files_cellar/todayspage.png"
-    label = SalvageLabel()
-    label.im.show()
-    page = SalvagePage(label.im)
-    page.salvage_page.save(path)
+def create_salvage_page(division=default_division, store=default_store):
+    page_creation_log = "_".join(("label_files_cellar/date_page_created", division, store)) + ".txt"
+    path = "_".join(("label_files_cellar/todayspage", division, store)) + ".png"
+
+    if not os._exists(page_creation_log):
+        print("We didn't have this division_store combo.")
+        with open(page_creation_log, "w") as f:
+            f.write(todays_date)
+
+    with open(page_creation_log, "r") as f:
+        last_created_date = f.read()
+        # print(last_created_date)
+
+    if last_created_date != todays_date:
+        print("Creating Salvage Page")
+        with open(page_creation_log, "w") as f:
+            f.write(todays_date)
+        label = SalvageLabel(division, store)
+        label.im.show()
+        page = SalvagePage(label.im)
+        page.salvage_page.save(path)
+    return path
+
+def check_create_salvage_page(division=default_division, store=default_store):
+    path = create_salvage_page(division, store)
     return path
 
 
@@ -105,5 +126,7 @@ if __name__ == "__main__":
     # here = SalvageLabel()
     # for i in here.label_details:
         # print(i)
+    #test_div="708"
+    #test_store="00687"
     create_salvage_page()
     #print(todays_date)

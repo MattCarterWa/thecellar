@@ -314,23 +314,20 @@ def log(id):
         return False
 
 
-
-
-
-if __name__ == '__main__':
+def check_email():
     import time
     # main()
     credentials = get_credentials()
     http = credentials.authorize(httplib2.Http())
     service = discovery.build('gmail', 'v1', http=http)
 
-    t_end = time.time() + 60 * 15
+    t_end = time.time() + 60 * 5
 
     while time.time() < t_end:
 
         message_list = ListMessagesMatchingQuery(service, 'me', query="Fred:SalvagePage")
-        #print(hey)
-        #quit()
+        # print(hey)
+        # quit()
 
         for id in message_list:
             # print(id)
@@ -348,20 +345,28 @@ if __name__ == '__main__':
                     if i['name'] == 'From':
                         name, email = i["value"].split("<")
                         email = email.strip(">")
-                        #print(name, email)
-                        #print('Found Request')
-                        #send = log(msg["id"])
-                        #print(send)
+                        # print(name, email)
+                        # print('Found Request')
+                        # send = log(msg["id"])
+                        # print(send)
 
-                        from utilities import todays_salvage_page_path
+                        from salvage_label import check_create_salvage_page
 
+                        msg = "".join(("Here is your salvage page ", name, ".", "\n",
+                                       "1. Place an F4T Label Sheet in any printer. \n",
+                                       "2. Print this sheet to that printer.\n",
+                                       "#. If it prints a little off, it's due to shifting as the page goes through the printer."))
                         send_attached_file(email, "Requested F4T Page",
-                                                           " ".join(("Here is your Salvage Page", name, ".")),
-                                                           todays_salvage_page_path)
+                                           msg,
+                                           check_create_salvage_page())
                         print("Mail Sent")
         time.sleep(60)
 
     print("Session Terminated")
+
+if __name__ == '__main__':
+    check_email()
+
 
 
     # print(hey)

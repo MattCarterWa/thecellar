@@ -1,6 +1,5 @@
 from datetime import datetime, date
 
-
 todays_date = str(date.today())
 starttime = (str(datetime.now().time())).split(":")
 current_time = ".".join((starttime[0], starttime[1]))
@@ -16,6 +15,8 @@ def na_date():
     segments = todays_date.split("-")
     na_date = "/".join((segments[1], segments[2], segments[0]))
     return na_date
+
+# from salvage_label import create_salvage_page
 
 def center_image(container_size, object_size):
     x = int(1/2 * (container_size[0] - object_size[0]))
